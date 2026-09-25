@@ -1,5 +1,5 @@
 import { test, expect } from '../../src/fixtures/test-fxtures';
-
+import { AccountSchema } from '../../src/api/schemas/account.schema';
 test.describe('Account API', () => {
 
   test('user CRUD should work correctly', async ({
@@ -14,7 +14,7 @@ test.describe('Account API', () => {
     expect(getResponse.status()).toBe(200);
 
     const getBody = await getResponse.json();
-
+    AccountSchema.parse(getBody);
     expect(getBody.responseCode).toBe(200);
 
     expect(getBody.user.email).toBe(

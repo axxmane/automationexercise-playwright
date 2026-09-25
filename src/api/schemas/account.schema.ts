@@ -18,7 +18,6 @@ export const AccountSchema = z.object({
     country: z.string(),
     state: z.string(),
     city: z.string(),
-    zipcode: z.string(),
-    mobile_number: z.string()
+    zipcode: z.string()
   })
 });

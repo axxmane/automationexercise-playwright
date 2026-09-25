@@ -1,17 +1,15 @@
 import { config } from '../api/config/config';
 import { TestUser } from '../api/clients/account-api';
 
-function generateUniqueEmail(): string {
+export function createTestUser(workerIndex = 0): TestUser {
   const timestamp = Date.now();
   const random = Math.floor(Math.random() * 10000);
 
-  return `playwright.qa.${timestamp}.${random}@example.com`;
-}
+  const uniqueId = `${workerIndex}-${timestamp}-${random}`;
 
-export function createTestUser(): TestUser {
   return {
-    name: `Playwright User ${Date.now()}`,
-    email: generateUniqueEmail(),
+    name: `Playwright User ${uniqueId}`,
+    email: `playwright.qa.${uniqueId}@example.com`,
     password: config.testUserPassword,
     title: 'Mr',
 

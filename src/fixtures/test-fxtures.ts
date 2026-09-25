@@ -55,11 +55,10 @@ export const test = base.extend<Fixtures>({
     await use(searchApi);
   },
 
-  testUser: async ({ accountApi }, use) => {
-    const user = createTestUser();
+  testUser: async ({ accountApi }, use, workerInfo) => {
+  const user = createTestUser(workerInfo.workerIndex);
 
-    const createResponse = await accountApi.createAccount(user);
-
+  const createResponse = await accountApi.createAccount(user);
     expect(createResponse.ok()).toBeTruthy();
 
     await use(user);
