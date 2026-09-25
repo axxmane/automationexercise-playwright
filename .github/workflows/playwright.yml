@@ -59,13 +59,17 @@ jobs:
         run: npx playwright install --with-deps ${{ matrix.browser }}
 
       - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.browser }} --shard=${{ matrix.shard }}
+  env:
+    WEB_URL: https://automationexercise.com
+    API_URL: https://automationexercise.com/api
+    TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+  run: npx playwright test --project=${{ matrix.browser }} --shard=${{ matrix.shard }}
 
       - name: Upload blob report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: blob-report-${{ matrix.browser }}-${{ matrix.shard }}
+        name: blob-report-${{ matrix.browser }}-${{ strategy.job-index }}
           path: blob-report/
           retention-days: 30
 
