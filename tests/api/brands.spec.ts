@@ -1,23 +1,22 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../src/fixtures/test-fxtures';
 
-test.describe('Brands API', () => {
-
-  test('GET brands should return successfully', async ({
-    request
+test.describe('Login API', () => {
+  test('login with missing parameter should return 400', async ({
+    authApi
   }) => {
-    const response = await request.get('/brandsList');
+    const response = await authApi.verifyLoginWithoutEmail(
+      'Password123!'
+    );
 
     expect(response.status()).toBe(200);
 
     const body = await response.json();
 
-    expect(body.responseCode).toBe(200);
+    expect(body.responseCode).toBe(400);
   });
 
-  test('PUT brands should return method not allowed', async ({
-    request
-  }) => {
-    const response = await request.put('/brandsList');
+  test('GET verifyLogin should return 405', async ({ authApi }) => {
+    const response = await authApi.verifyLoginWithGet();
 
     expect(response.status()).toBe(200);
 
@@ -25,5 +24,4 @@ test.describe('Brands API', () => {
 
     expect(body.responseCode).toBe(405);
   });
-
 });

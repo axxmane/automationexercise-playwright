@@ -1,5 +1,4 @@
-import type { APIRequestContext, APIResponse } from '@playwright/test';
-
+import { APIRequestContext, APIResponse } from '@playwright/test';
 import { config } from '../config/config';
 
 type FormData = Record<string, string>;
@@ -15,26 +14,20 @@ export class ApiClient {
     endpoint: string,
     form?: FormData
   ): Promise<APIResponse> {
-    return this.request.post(`${config.apiUrl}${endpoint}`, {
-      form
-    });
+    return this.request.post(`${config.apiUrl}${endpoint}`, { form });
   }
 
   async put(
     endpoint: string,
     form?: FormData
   ): Promise<APIResponse> {
-    return this.request.put(`${config.apiUrl}${endpoint}`, {
-      form
-    });
+    return this.request.put(`${config.apiUrl}${endpoint}`, { form });
   }
 
   async delete(
     endpoint: string,
     form?: FormData
   ): Promise<APIResponse> {
-    return this.request.delete(`${config.apiUrl}${endpoint}`, {
-      form
-    });
+    return this.request.delete(`${config.apiUrl}${endpoint}`, { form });
   }
 }

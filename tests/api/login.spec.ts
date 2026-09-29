@@ -1,17 +1,11 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../src/fixtures/test-fxtures';
 
 test.describe('Login API', () => {
-
   test('login with missing parameter should return 400', async ({
-    request
+    authApi
   }) => {
-    const response = await request.post(
-      '/verifyLogin',
-      {
-        form: {
-          password: 'Password123!'
-        }
-      }
+    const response = await authApi.verifyLoginWithoutEmail(
+      'Password123!'
     );
 
     expect(response.status()).toBe(200);
@@ -21,12 +15,10 @@ test.describe('Login API', () => {
     expect(body.responseCode).toBe(400);
   });
 
-  test('GET verifyLogin should return 405', async ({
-    request
+  test('DELETE verifyLogin should return 405', async ({
+    apiClient
   }) => {
-    const response = await request.get(
-      '/verifyLogin'
-    );
+    const response = await apiClient.delete('/verifyLogin');
 
     expect(response.status()).toBe(200);
 
@@ -34,5 +26,4 @@ test.describe('Login API', () => {
 
     expect(body.responseCode).toBe(405);
   });
-
 });
